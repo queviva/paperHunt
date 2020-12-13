@@ -1,0 +1,368 @@
+<!doctype html>
+<html>
+
+<head><title>paper hunting</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link id="luckiestFont" href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
+<style>
+
+*{
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #eee;
+    font-family: sans-serif;
+}
+
+#holder {
+    
+    --squareColor: 40;
+    --circleColor: 300;
+    --backColor: #777;
+    --iconSize: 70px;
+    --fontSize: 30px;
+    --fade: linear-gradient(235deg, #777, #aaa, #777);
+    
+    --squareIcon: url('migs/square00.png');
+    --circleIcon: url('migs/circle00.png');
+    
+    --mainColor: var(--squareColor);
+    
+    --normColor: hsla(var(--mainColor),90%,60%,1.0);
+    --liteColor: hsla(var(--mainColor),90%,80%,1.0);
+    --darkColor: hsla(var(--mainColor),90%,35%,1.0);
+    
+    --iconMig: var(--squareIcon);
+
+    width: 100%;
+    max-width: 700px;
+    min-width: 300px;
+    margin: auto;
+    
+    background-color: none;
+    xxxborder: 1px solid #000;
+    
+}
+
+.hunt {
+    background-color: var(--backColor);
+    background: var(--fade);
+    padding-top: 10px;
+    margin: 50px 0px 50px 0px;
+    border-radius: 0px 15px 0px 15px;
+    border: 3px solid #555;
+}
+
+.dialog {
+    position: relative;
+    height: auto;
+    padding: 18px 20px 20px 20px;
+}
+
+.dialog:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.dialog > div {
+    float: left;
+}
+
+.icon {
+    position: relative;
+    top: -50px;
+    height: var(--iconSize);
+    width: var(--iconSize);
+    background-image: var(--iconMig);
+    background-size: 100% 100%;
+}
+
+.werds {
+    height: auto;
+    padding: 20px;
+    width: calc(100% - var(--iconSize));
+    color: hsla(var(--mainColor),90%,95%,1.0);
+    background-color: hsla(var(--mainColor),90%,60%,1.0);
+    border: 3px solid hsla(var(--mainColor),90%,35%,1.0);
+    font-size: var(--fontSize);
+}
+
+.dialog.q > .werds {
+    border-radius: 0px 10px 10px 20px;
+}
+
+.dialog.c > .werds {
+    border-radius: 10px 0px 20px 10px;
+}
+
+hr {
+    width: calc(100% - 30px);
+    border-top: 1px solid #000;
+    border-bottom: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.emp {
+    font-style: italic;
+    xxxfont-weight: bold;
+    font-size: calc(var(--fontSize) + 10px);
+    font-family: 'luckiest guy';
+}
+
+img {
+    border: 2px solid black;
+    height: 100px;
+    width: calc(100% - 2*20px);
+    margin: 0px 20px 4px 20px;
+    background-color: green;
+}
+
+</style>
+
+</head>
+
+<body>
+<div id="holder">
+    
+    <div class="hunt">
+    <div class="Q">
+        Hi! I'm a <span class="emp">Square</span>
+    </div>
+    
+    <div class="C">
+        And I'm a <span class="emp">Circle</span>
+        <br><br>
+        We were asked to participate
+        in a study about <i>Pack Hunting</i>
+    </div>
+    
+    <div class="Q">
+        I played the <i>hunter</i>... a deadly, deadly killer.
+    </div>
+    
+    <div class="C">
+        And I was the innocent <i>prey</i>, just running for my life!
+    </div>
+    
+    <div class="Q">
+        We were placed in a number of experimental
+        hunts, each with different characteristics.
+        <br><br>
+        Afterwards, we were asked to report back about
+        our experiences in each situation.
+        <br><br>
+        So, here we go!
+    </div>
+    
+    </div>
+    <div id="title">
+        <center style="
+            font-size:120px;
+            font-family:'luckiest guy';
+            color: var(--normColor);
+            -webkit-text-stroke: 3px var(--darkColor);
+        ">
+            Pack Hunt
+        </center>
+        <center style="
+            font-style: italic;
+            font-size: 20px;
+            color: var(--darkColor);
+        ">
+            ~ emergent altruism through transmission of infection ~
+        </center>
+    </div>
+    <div class="hunt">
+    
+    <div class="C">
+        In the first hunt, we were dropped in an open
+        field.
+        <br><br>
+        As the prey, I was given a much higher
+        top speed than the hunter.
+    </div>
+    
+    <img src="migs/hunt01.png" style="height:auto;">
+    
+    <div class="Q">
+        As you can see, there was simply NO WAY for me
+        to catch up. No matter what, Circle could
+        ALWAYS outrun me.
+        <br><br>
+        In fact, it didn't matter how many prey circles
+        were in the scene, I could never catch anyone.
+    </div>
+    
+    <img>
+    
+    <div class="C">
+        That seems kind of obvious: in an open field,
+        if the prey's top speed is faster than the
+        hunter - by definition - no kills will ever
+        be made.
+    </div>
+        
+    </div>
+    <div class="hunt">
+    <div class="Q">
+        Things were reversed for the next hunt. This
+        time <span class="emp">I</span>
+        had a much higher top speed than the prey.
+    </div>
+    
+    <img>
+            
+    <div class="C">
+        I simply couldn't escape!
+        <br><br>
+        No matter how many
+        circles were placed in the scene,
+        whichever circle was
+        closest to the hunter got caught immediately.
+    </div>
+    <img>
+    <div class="C">
+        Again, this ought to make perfect sense.
+    </div>
+    
+    <div class="Q">
+        It might seem like there could NEVER be any
+        way to create a fair hunt.
+        <br><br>
+        But wait...
+    </div>
+    
+    </div>
+    <div class="hunt">
+            
+    <div class="C">
+        For the third hunt, I was again given a higher
+        top speed than the hunting square, but now,
+        <span class="emp">obstacles</span>
+        were randomly placed throughout the scene.
+    </div>
+    
+    <img>
+        
+    <div class="Q">
+        Just like before, I started off unable to catch
+        up to any of the prey circles.
+        <br><br>
+        But then something
+        happened.
+    </div>
+    
+    <div class="C">
+        I ran into a wall! I had to stop, and turn around
+        to get away from the wall.
+        <br><br>
+        I had no choice but to briefly run TOWARDS the hunter!
+    </div>
+    
+    <div class="Q">
+        That was all I needed. When the obstacles forced
+        the circle to zig-zag around, it was kind of like
+        reducing the prey's top speed.
+    </div>
+    
+    <div class="C">
+        When I ran into the wall, I had to stop, and turn around.
+        <br><br>
+        Sure, <i>technically</i> I was still faster, but I had to
+        use some of my speed to run around the walls,
+        instead of using all of it to increase my distance
+        away from the hunter.
+    </div>
+    
+    <div class="Q">
+        And, because I was slower, I trailed behind my
+        prey - I didn't even encounter the obstacles
+        until AFTER the prey had already run into them.
+    </div>
+    
+    <div class="C">
+         A lot of times, I turned around from a wall and
+         RIGHT into the waiting jaws of the hunting square.
+    </div>
+    
+    <div class="Q">
+        I wasn't WAITING ofcourse - it just appeared that
+        way because I was lagging behind due to my slower
+        speed.
+        <br><br>
+        To a lot of people, it appeared as though
+        I was running my prey towards an obstacle, and then
+        waiting for the catch, <i>on purpose.</i>
+        <br><br>
+        That's what they call an
+        <span class="emp">EMERGENT</span> property!
+    </div>
+    
+    <div class="C">
+         Of COURSE it's going to look like that ...
+    </div>
+    
+    </div>
+    
+</div>
+
+</body>
+
+<script>
+    
+(() => { // anonymouse closure
+
+    // loop through all the square dialogs
+    document.querySelectorAll('.Q, .C').forEach(log => {
+
+        // hold the innerhtml in a var
+        let tmpHTML = log.innerHTML;
+        // blank the div
+        log.innerHTML = '';
+        // remember the type
+        let type = log.className;
+        // remove its class
+        log.classList = '';
+        // give it the right class
+        log.classList.add('dialog');
+        log.classList.add(type === 'Q' ? 'q' : 'c');
+
+        // create a div for the talking
+        let werds = document.createElement('div');
+        // put the werds in it
+        werds.innerHTML = tmpHTML;
+        werds.classList.add('werds');
+        // add it to the dialog div
+        log.appendChild(werds);
+
+        // create and icon for the dialog
+        let icon = document.createElement('div');
+        icon.classList.add('icon');
+        if (type === 'C') {
+            icon.style.setProperty('--iconMig', 'var(--circleIcon)');
+            werds.style.setProperty('--mainColor', 'var(--circleColor)');
+        }
+        // add it to the dialog div
+        log[type == 'C' ? 'append' : 'prepend'](icon);
+
+    });
+})();
+
+</script>
+
+</html>
+        
+       
+       
+       
+       
+       
+       
+       
+       
