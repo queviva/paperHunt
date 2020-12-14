@@ -116,17 +116,45 @@ hr {
 }
 
 img {
-    border: 2px solid black;
+    border: 2px solid hsl(120, 100%, 15%);
     height: 100px;
     width: calc(100% - 2*20px);
-    margin: 0px 20px 4px 20px;
-    background-color: green;
+    margin: 0px 20px 8px 20px;
+    background-color: hsl(120, 100%, 25%);
+    filter: url("#DF");
+    xxxfilter: grayscale(80%);
+    overflow: hidden;
 }
 
+svg {
+    display: none;
+}
 </style>
 
 </head>
 
+<svg>
+  <defs>
+    <filter id="DF">
+      <feMorphology
+        in="SourceGraphic"
+        operator="erode"
+        radius="1"
+        result="sketchImage"
+      />
+      <feTurbulence type="fractalNoise" baseFrequency="12.5" numOctaves="2" result="noisy" />
+      <feDisplacementMap
+        in="SourceGraphic"
+        scale="4"
+        xChannelSelector="R"
+        yChannelSelector="G"
+        result="disMap"
+      />
+      <!--feBlend in="disMap" in2="noisy" mode="multiply" /-->
+    </filter>
+  </defs>
+</svg>
+         
 <body>
 <div id="holder">
     
@@ -199,7 +227,7 @@ img {
         were in the scene, I could never catch anyone.
     </div>
     
-    <img>
+    <img src="migs/hunt02.png" style="height:auto;">
     
     <div class="C">
         That seems kind of obvious: in an open field,
@@ -212,7 +240,7 @@ img {
     <div class="hunt">
     <div class="Q">
         Things were reversed for the next hunt. This
-        time <span class="emp">I</span>
+        time <span class="emp">eYe</span>
         had a much higher top speed than the prey.
     </div>
     
@@ -255,7 +283,7 @@ img {
         up to any of the prey circles.
         <br><br>
         But then something
-        happened.
+        happened...
     </div>
     
     <div class="C">
@@ -288,7 +316,7 @@ img {
     
     <div class="C">
          A lot of times, I turned around from a wall and
-         RIGHT into the waiting jaws of the hunting square.
+         RIGHT INTO the waiting jaws of the hunting square.
     </div>
     
     <div class="Q">
@@ -296,9 +324,10 @@ img {
         way because I was lagging behind due to my slower
         speed.
         <br><br>
-        To a lot of people, it appeared as though
-        I was running my prey towards an obstacle, and then
-        waiting for the catch, <i>on purpose.</i>
+        To a lot of people, it <b>appeared</b> as though
+        I was intentionally running my prey towards an
+        obstacle, and then waiting for the catch,
+        <i>on purpose.</i>
         <br><br>
         That's what they call an
         <span class="emp">EMERGENT</span> property!
