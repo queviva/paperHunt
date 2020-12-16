@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link id="luckiestFont" href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
-<style>
+<style id="paperHuntStyles">
 
 *{
     box-sizing: border-box;
@@ -16,6 +16,19 @@ body {
     margin: 0;
     background-color: #eee;
     font-family: sans-serif;
+}
+
+img {
+    border: 2px solid hsl(120, 100%, 15%);
+    height: 100px;
+    width: calc(100% - 2*20px);
+    margin: 0px 20px 8px 20px;
+    background-color: hsl(120, 100%, 25%);
+    filter: url("#DF");
+}
+
+svg {
+    display: none;
 }
 
 #holder {
@@ -100,14 +113,6 @@ body {
     border-radius: 10px 0px 20px 10px;
 }
 
-hr {
-    width: calc(100% - 30px);
-    border-top: 1px solid #000;
-    border-bottom: 0px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 .emp {
     font-style: italic;
     xxxfont-weight: bold;
@@ -115,20 +120,6 @@ hr {
     font-family: 'luckiest guy';
 }
 
-img {
-    border: 2px solid hsl(120, 100%, 15%);
-    height: 100px;
-    width: calc(100% - 2*20px);
-    margin: 0px 20px 8px 20px;
-    background-color: hsl(120, 100%, 25%);
-    filter: url("#DF");
-    xxxfilter: grayscale(80%);
-    overflow: hidden;
-}
-
-svg {
-    display: none;
-}
 </style>
 
 </head>
@@ -142,6 +133,8 @@ svg {
         radius="1"
         result="sketchImage"
       />
+    </filter>
+    <filter id="roughItUp">
       <feTurbulence type="fractalNoise" baseFrequency="12.5" numOctaves="2" result="noisy" />
       <feDisplacementMap
         in="SourceGraphic"
@@ -150,7 +143,7 @@ svg {
         yChannelSelector="G"
         result="disMap"
       />
-      <!--feBlend in="disMap" in2="noisy" mode="multiply" /-->
+      <feBlend in="disMap" in2="noisy" mode="multiply" />
     </filter>
   </defs>
 </svg>
@@ -158,7 +151,7 @@ svg {
 <body>
 <div id="holder">
     
-    <div class="hunt">
+    <div id="intro" class="hunt">
     <div class="Q">
         Hi! I'm a <span class="emp">Square</span>
     </div>
@@ -200,13 +193,14 @@ svg {
         </center>
         <center style="
             font-style: italic;
+            font-weight: bold;
             font-size: 20px;
             color: var(--darkColor);
         ">
             ~ emergent altruism through transmission of infection ~
         </center>
     </div>
-    <div class="hunt">
+    <div id="hunt01" class="hunt">
     
     <div class="C">
         In the first hunt, we were dropped in an open
@@ -232,8 +226,7 @@ svg {
     <div class="C">
         That seems kind of obvious: in an open field,
         if the prey's top speed is faster than the
-        hunter - by definition - no kills will ever
-        be made.
+        hunter, no kills will ever be made.
     </div>
         
     </div>
@@ -294,10 +287,14 @@ svg {
     </div>
     
     <div class="Q">
-        That was all I needed. When the obstacles forced
+        That was all I needed.
+        <br><br>
+        When the obstacles forced
         the circle to zig-zag around, it was kind of like
-        reducing the prey's top speed.
+        <i>reducing</i> the prey's top speed.
     </div>
+    
+    <img src="migs/pursuitVectorChart.png" style="height:auto">
     
     <div class="C">
         When I ran into the wall, I had to stop, and turn around.
@@ -329,8 +326,10 @@ svg {
         obstacle, and then waiting for the catch,
         <i>on purpose.</i>
         <br><br>
-        That's what they call an
-        <span class="emp">EMERGENT</span> property!
+        That's what they call an<br>
+        <div style="width:100%;text-align:right" class="emp">
+            EMERGENT property!
+        </div>
     </div>
     
     <div class="C">
@@ -347,7 +346,16 @@ svg {
     
 (() => { // anonymouse closure
 
-    // loop through all the square dialogs
+    // set up options {
+    let
+    iconChoice = 'alternate', // 'alternate'||'random'
+    squareCount = 0,
+    circleCount = 0,
+    squareMigList = ['square00.png', 'square01.png','square02.png'],
+    circleMigList = ['circle00.png', 'circle01.png'];
+    //}
+
+    // loop through all the dialogs
     document.querySelectorAll('.Q, .C').forEach(log => {
 
         // hold the innerhtml in a var
@@ -373,25 +381,32 @@ svg {
         // create and icon for the dialog
         let icon = document.createElement('div');
         icon.classList.add('icon');
+        
+        // put the correct icons in there
         if (type === 'C') {
-            icon.style.setProperty('--iconMig', 'var(--circleIcon)');
+            icon.style.setProperty('--iconMig', 'url(migs/' + (
+                iconChoice === 'random' ?
+                circleMigList[~~(Math.random()*circleMigList.length)]
+                :
+                circleMigList[(circleCount++)%circleMigList.length]
+            ) + ')');
             werds.style.setProperty('--mainColor', 'var(--circleColor)');
+        } else {
+            icon.style.setProperty('--iconMig', 'url(migs/' + (
+                iconChoice === 'random' ?
+                squareMigList[~~(Math.random()*squareMigList.length)]
+                :
+                squareMigList[(squareCount++)%squareMigList.length]
+            ) + ')');
+            werds.style.setProperty('--mainColor', 'var(--squareColor)');
         }
         // add it to the dialog div
         log[type == 'C' ? 'append' : 'prepend'](icon);
 
     });
+    
 })();
 
 </script>
 
 </html>
-        
-       
-       
-       
-       
-       
-       
-       
-       
