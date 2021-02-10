@@ -1,11 +1,17 @@
-<!doctype html>
-<html>
+<!doctype html><html>
 
 <head><title>paper hunting</title>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link id="luckiestFont" href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
+<!--link rel="preconnect" href="https://fonts.gstatic.com"-->
+<!--link id="luckiestFont" href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet"-->
+
 <style id="paperHuntStyles">
+
+@font-face {
+  font-family: lucky;
+  src: url(lucky.ttf);
+}
 
 *{
     box-sizing: border-box;
@@ -31,19 +37,20 @@ svg {
     display: none;
 }
 
-#holder {
+.holder {
     
     --squareColor: 40;
     --circleColor: 300;
+    --labcoatColor: 0;
     --backColor: #777;
-    --iconSize: 70px;
     --fontSize: 30px;
     --fade: linear-gradient(235deg, #777, #aaa, #777);
     
-    --squareIcon: url('migs/square00.png');
-    --circleIcon: url('migs/circle00.png');
+    --XXXsquareIcon: url('migs/square00.png');
+    --XXXcircleIcon: url('migs/circle00.png');
     
     --mainColor: var(--squareColor);
+    --lightness: 90%;
     
     --normColor: hsla(var(--mainColor),90%,60%,1.0);
     --liteColor: hsla(var(--mainColor),90%,80%,1.0);
@@ -71,6 +78,8 @@ svg {
 }
 
 .dialog {
+    --werdGap: 35px;
+    --iconSize: 70px;
     position: relative;
     height: auto;
     padding: 18px 20px 20px 20px;
@@ -86,20 +95,55 @@ svg {
     float: left;
 }
 
-.icon {
+.dialog.q { }
+
+.dialog.c {
+    --werdGap: 40px;
+    --iconSize: 60px;
+}
+
+.dialog.l {
+    --werdGap: 80px;
+    --iconSize: 120px;
+}
+
+.iconHolder {
     position: relative;
-    top: -50px;
+    height: 1px;
+    width: var(--werdGap);
+    transform: scale(1.0);
+    transition: transform linear 0.15s;
+    transform-origin: 50% 24px;
+}
+
+.icon {
+    position: absolute;
     height: var(--iconSize);
     width: var(--iconSize);
-    background-image: var(--iconMig);
     background-size: 100% 100%;
+    overflow: visible;
+}
+
+.icon.q {
+    top: -50px;
+    left: 0px;
+}
+
+.icon.c {
+    top: -33px;
+    left: -6px;
+}
+            
+.icon.l {
+    top: 20px;
+    left: -20px;
 }
 
 .werds {
     height: auto;
     padding: 20px;
-    width: calc(100% - var(--iconSize));
-    color: hsla(var(--mainColor),90%,95%,1.0);
+    width: calc(100% - var(--werdGap));
+    color: hsla(var(--mainColor),90%,35%,1.0);
     background-color: hsla(var(--mainColor),90%,60%,1.0);
     border: 3px solid hsla(var(--mainColor),90%,35%,1.0);
     font-size: var(--fontSize);
@@ -113,11 +157,43 @@ svg {
     border-radius: 10px 0px 20px 10px;
 }
 
+.dialog.l > .werds {
+    /*border-radius: 10px 0px 20px 0px;*/
+}
+
+.dialog:hover .iconHolder {
+    transform: scale(1.2);
+    transition: transform cubic-bezier(0.2,1,0.5,2) 0.4s;
+}
+
 .emp {
     font-style: italic;
-    xxxfont-weight: bold;
+    font-family: 'lucky';
+    line-height: var(--fontSize);
     font-size: calc(var(--fontSize) + 10px);
-    font-family: 'luckiest guy';
+    position: relative;
+    top: 5px;
+}
+
+.title-icon {
+    position: absolute;
+    background-size: 100% 100%;
+    transform: scale(-1,1);
+    transition-delay: 0s;
+    transition: all linear 0.2s;
+}
+
+#title center:hover ~ .title-icon {
+    transform: scale(-1.2,1.2);
+    transition: all cubic-bezier(0.2,1,0.5,2) 0.5s;
+}
+
+#title center:hover ~ .title-icon.q {
+    transition-delay: 0.15s;
+}
+
+#title center:hover ~ .title-icon.l {
+    transition-delay: 0.30s;
 }
 
 </style>
@@ -149,8 +225,9 @@ svg {
 </svg>
          
 <body>
-<div id="holder">
-    
+
+<div class="holder">
+
     <div id="intro" class="hunt">
     <div class="Q">
         Hi! I'm a <span class="emp">Square</span>
@@ -182,14 +259,16 @@ svg {
     </div>
     
     </div>
-    <div id="title">
+
+    <div id="title" style="overflow: visible;">
+      <div style="position:relative;">
         <center style="
             font-size:120px;
-            font-family:'luckiest guy';
+            font-family:'lucky';
             color: var(--normColor);
             -webkit-text-stroke: 3px var(--darkColor);
         ">
-            Pack Hunt
+            PACK HUNT
         </center>
         <center style="
             font-style: italic;
@@ -197,10 +276,33 @@ svg {
             font-size: 20px;
             color: var(--darkColor);
         ">
-            ~ emergent altruism through transmission of infection ~
+            ~ emergent altruism through infectious transmission ~
         </center>
+        <div class="title-icon" style="
+            background-image: url(migs/circle01.png);
+            top: 41px;
+            left: 90px;
+            height: 50px;
+            width: 50px;
+        "></div>
+        <div class="title-icon q" style="
+            background-image: url(migs/square00.png);
+            top: 35px;
+            right: 90px;
+            height: 60px;
+            width: 60px;
+        "></div>
+        <div class="title-icon l" style="
+            background-image: url(migs/titleCoat.png);
+            top: -20px;
+            left: 310px;
+            height: 70px;
+            width: 70px;
+        "></div>
+       </div>
     </div>
-    <div id="hunt01" class="hunt">
+
+    <div id="hunt0X" class="hunt">
     
     <div class="C">
         In the first hunt, we were dropped in an open
@@ -218,7 +320,7 @@ svg {
         ALWAYS outrun me.
         <br><br>
         In fact, it didn't matter how many prey circles
-        were in the scene, I could never catch anyone.
+        were in the scene, I could NEVER catch anyone.
     </div>
     
     <img src="migs/hunt02.png" style="height:auto;">
@@ -230,7 +332,8 @@ svg {
     </div>
         
     </div>
-    <div class="hunt">
+
+    <div id="hunt1X" class="hunt">
     <div class="Q">
         Things were reversed for the next hunt. This
         time <span class="emp">eYe</span>
@@ -260,7 +363,8 @@ svg {
     </div>
     
     </div>
-    <div class="hunt">
+
+    <div id="hunt2X" class="hunt">
             
     <div class="C">
         For the third hunt, I was again given a higher
@@ -336,75 +440,149 @@ svg {
          Of COURSE it's going to look like that ...
     </div>
     
+    <div class="L">
+        ... and let me tell you why.
+        <br><br>
+        Hi, I'm a <span class="emp">Lab Coat</span>
     </div>
     
+    </div>
+
 </div>
 
 </body>
 
 <script>
+////////////////////////////////////////////////////////////{
+// pizzaface - december MMXX
+//
+'use strict';
+////////////////////////////////////////////////////////////}
     
 (() => { // anonymouse closure
 
     // set up options {
     let
-    iconChoice = 'alternate', // 'alternate'||'random'
-    squareCount = 0,
-    circleCount = 0,
-    squareMigList = ['square00.png', 'square01.png','square02.png'],
-    circleMigList = ['circle00.png', 'circle01.png'];
+    iconChoice = 'alternate'; // 'alternate'||'random'
+    //}
+    
+    // an icon object {
+    class IconObj {
+        constructor (name, selector, list, pend) {
+            this.name = name;
+            this.selector = selector;
+            this.count = 0;
+            this.migList = list;
+            this.pend = pend || 'append';
+        }
+    }
+    //}
+    
+    // all the icon info {
+    const allCons = {
+        C : new IconObj(
+            'circle',
+            '.C',
+            ['circle00.png', 'circle01.png'],
+            'append'
+        ),
+        Q : new IconObj(
+            'square',
+            '.Q',
+            ['square00.png', 'square01.png', 'square02.png'],
+            'prepend'
+        ),
+        L : new IconObj(
+            'labcoat',
+            '.L',
+            ['labCoat02.png'],
+            'prepend'
+        )
+    };
     //}
 
-    // loop through all the dialogs
-    document.querySelectorAll('.Q, .C').forEach(log => {
-
-        // hold the innerhtml in a var
-        let tmpHTML = log.innerHTML;
-        // blank the div
-        log.innerHTML = '';
-        // remember the type
-        let type = log.className;
-        // remove its class
-        log.classList = '';
-        // give it the right class
-        log.classList.add('dialog');
-        log.classList.add(type === 'Q' ? 'q' : 'c');
-
-        // create a div for the talking
-        let werds = document.createElement('div');
-        // put the werds in it
-        werds.innerHTML = tmpHTML;
-        werds.classList.add('werds');
-        // add it to the dialog div
-        log.appendChild(werds);
-
-        // create and icon for the dialog
-        let icon = document.createElement('div');
-        icon.classList.add('icon');
+    // loop through all the icon objects {
+    for (let i in allCons) {
         
-        // put the correct icons in there
-        if (type === 'C') {
-            icon.style.setProperty('--iconMig', 'url(migs/' + (
-                iconChoice === 'random' ?
-                circleMigList[~~(Math.random()*circleMigList.length)]
-                :
-                circleMigList[(circleCount++)%circleMigList.length]
-            ) + ')');
-            werds.style.setProperty('--mainColor', 'var(--circleColor)');
-        } else {
-            icon.style.setProperty('--iconMig', 'url(migs/' + (
-                iconChoice === 'random' ?
-                squareMigList[~~(Math.random()*squareMigList.length)]
-                :
-                squareMigList[(squareCount++)%squareMigList.length]
-            ) + ')');
-            werds.style.setProperty('--mainColor', 'var(--squareColor)');
-        }
-        // add it to the dialog div
-        log[type == 'C' ? 'append' : 'prepend'](icon);
-
-    });
+        document.querySelectorAll(allCons[i].selector).forEach(log => {
+            
+            // initial parsing {
+            
+            // hold the innerhtml in a var
+            let tmpHTML = log.innerHTML;
+            // blank the div
+            log.innerHTML = '';
+            // remember the type
+            let type = log.className;
+            // remove its class
+            log.classList = '';
+            // give it the right classes
+            log.classList.add(
+                'dialog',
+                allCons[i].selector.replace(/\./,'').toLowerCase()
+            );
+            //}
     
+            // werds div {
+                
+            // create a div for the talking
+            let werds = document.createElement('div');
+            // put the werds in it
+            werds.innerHTML = tmpHTML;
+            // give it some class
+            werds.classList.add('werds');
+            // make the werds the correct color
+            werds.style.setProperty(
+                '--mainColor',
+                `var(--${ allCons[i].name }Color)`
+            );
+            // add it to the dialog div
+            log.appendChild(werds);
+            //}
+    
+            // icon img div {
+                
+            // create image div for inside the icon holder
+            let migDiv = (document.createElement('div'));
+            
+            // give it the right classes
+            migDiv.classList.add(
+                'icon',
+                allCons[i].selector.replace(/\./,'').toLowerCase()
+            );
+            
+            // shorthand for migList
+            let list = allCons[i].migList;
+            
+            // put the correct icon in there
+            migDiv.style.setProperty('background-image', 'url(migs/' + (
+                iconChoice === 'random' ?
+                list[~~(Math.random() * list.length)] :
+                list[(allCons[i].count++) % list.length]
+            ) +')');
+            //}
+            
+            // icon holder div {
+                
+            // create a holder div
+            let migHolder = document.createElement('div');
+            migHolder.classList.add(
+                'iconHolder',
+                allCons[i].selector.replace(/\./,'').toLowerCase()
+            );
+            
+            // put the icon in the holder
+            migHolder.append(migDiv);
+            
+            // add the icon holder to the dialog div
+            log[allCons[i].pend](migHolder);
+            //}
+    
+        });
+        
+    }
+    //}
+
 })();
 
 </script>
