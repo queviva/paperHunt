@@ -1,11 +1,7 @@
-<!doctype html><html>
+<!doctype html><html lang="en">
 
-<head><title>paper hunting</title>
-
+<head><title>packhunt</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--link rel="preconnect" href="https://fonts.gstatic.com"-->
-<!--link id="luckiestFont" href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet"-->
-
 <style id="paperHuntStyles">
 
 @font-face {
@@ -26,7 +22,7 @@ body {
 
 img {
     border: 2px solid hsl(120, 100%, 15%);
-    height: 100px;
+    xheight: 100px;
     width: calc(100% - 2*20px);
     margin: 0px 20px 8px 20px;
     background-color: hsl(120, 100%, 25%);
@@ -106,6 +102,10 @@ svg {
     --werdGap: 80px;
     --iconSize: 120px;
 }
+.dialog.ll {
+    --werdGap: 80px;
+    --iconSize: 120px;
+}
 
 .iconHolder {
     position: relative;
@@ -135,6 +135,10 @@ svg {
 }
             
 .icon.l {
+    top: 20px;
+    left: -20px;
+}
+.icon.ll {
     top: 20px;
     left: -20px;
 }
@@ -175,7 +179,7 @@ svg {
     top: 5px;
 }
 
-.title-icon {
+.title-icon.c, .title-icon.q {
     position: absolute;
     background-size: 100% 100%;
     transform: scale(-1,1);
@@ -183,11 +187,24 @@ svg {
     transition: all linear 0.2s;
 }
 
-#title center:hover ~ .title-icon {
+.title-icon.l {
+    position: absolute;
+    background-size: 100% 100%;
+    transform: scale(1,1);
+    transition-delay: 0s;
+    transition: all linear 0.2s;
+}
+
+#title center:hover ~ .title-icon.q,
+#title center:hover ~ .title-icon.c {
     transform: scale(-1.2,1.2);
     transition: all cubic-bezier(0.2,1,0.5,2) 0.5s;
 }
 
+#title center:hover ~ .title-icon.l {
+    transform: scale(1.2,1.2);
+    transition: all cubic-bezier(0.2,1,0.5,2) 0.5s;
+}
 #title center:hover ~ .title-icon.q {
     transition-delay: 0.15s;
 }
@@ -197,7 +214,6 @@ svg {
 }
 
 </style>
-
 </head>
 
 <svg>
@@ -278,7 +294,7 @@ svg {
         ">
             ~ emergent altruism through infectious transmission ~
         </center>
-        <div class="title-icon" style="
+        <div class="title-icon c" style="
             background-image: url(migs/circle01.png);
             top: 41px;
             left: 90px;
@@ -293,7 +309,7 @@ svg {
             width: 60px;
         "></div>
         <div class="title-icon l" style="
-            background-image: url(migs/titleCoat.png);
+            background-image: url(migs/labCoat00.png);
             top: -20px;
             left: 310px;
             height: 70px;
@@ -340,7 +356,7 @@ svg {
         had a much higher top speed than the prey.
     </div>
     
-    <img>
+    <img src="migs/hunt03.png">
             
     <div class="C">
         I simply couldn't escape!
@@ -349,9 +365,7 @@ svg {
         circles were placed in the scene,
         whichever circle was
         closest to the hunter got caught immediately.
-    </div>
-    <img>
-    <div class="C">
+        <br><br>
         Again, this ought to make perfect sense.
     </div>
     
@@ -373,7 +387,7 @@ svg {
         were randomly placed throughout the scene.
     </div>
     
-    <img>
+    <img src="migs/hunt04.png">
         
     <div class="Q">
         Just like before, I started off unable to catch
@@ -394,7 +408,7 @@ svg {
         That was all I needed.
         <br><br>
         When the obstacles forced
-        the circle to zig-zag around, it was kind of like
+        Circle to zig-zag around, it was kind of like
         <i>reducing</i> the prey's top speed.
     </div>
     
@@ -417,7 +431,7 @@ svg {
     
     <div class="C">
          A lot of times, I turned around from a wall and
-         RIGHT INTO the waiting jaws of the hunting square.
+         RIGHT INTO the waiting jaws of the hunting Square.
     </div>
     
     <div class="Q">
@@ -442,13 +456,109 @@ svg {
     
     <div class="L">
         ... and let me tell you why.
-        <br><br>
-        Hi, I'm a <span class="emp">Lab Coat</span>
     </div>
     
     </div>
+    
+    <div id="emergency" class="hunt">
+    <div class="LL">
+        Hi, I'm a <span class="emp">Lab Coat</span>
+        <br><br>
+        You can tell from my clipboard that I must
+        know what I'm talking about.
+        <br><br>
+        But what <i>am</i> I talking about?
+    </div>
+    
+    <div class="L">
+        It was being slower that <i>allowed</i>
+        the hunter to catch the prey.
+        <br><br>
+        <div style="
+            font-size:0.75em;
+            text-align:justify;
+            -webkit-hyphens: auto;
+            hyphens: auto;
+        ">
+        By making fewer updates to his direction,
+        the hunter appears to be more focused on
+        pursuing the prey.  A prey circle
+        has the time and speed and quickness of
+        opportunity to make many changes to
+        its position while the relative lethargy
+        of the square only permits the hunter
+        to update its postion after the fleeing
+        prey has made many twists and turns.
+        <br><br>
+        <i>If</i> the hunter had the same top
+        speed as the prey, he would always be
+        right on the heels of the prey, making
+        the same number of twists and turns,
+        following in the exact footstep of
+        the prey, and <i>never catching up.</i>
+        <br><br>
+        Do you see? Being faster is a disadvantage
+        to the hunter - when the hunter's
+        top speed is too similar to the prey's top
+        speed, there will never be a kill.
+        <br><br>
+        As we've seen, in open terrain, a faster
+        hunter will kill every time, a slower hunter
+        will never make a kill - but in the presence
+        of obstacles, there's a range of speed
+        below which the hunter is, obviously, too
+        slow to ever make a kill, but also over
+        which the hunter is too fast to take
+        advantage of the obstacles.
+        <br><br>
+        Eventually, ofcourse, there's another
+        range of higher speeds where the hunter
+        is fast enough to outrun the prey;
+        but what's fascinating is that there happens
+        to be a range of lower speeds at which
+        hunting is much more efficient.
+        </div>
+        
+    </div>
+    <img src="migs/killRange.png"
+        
+        
+    </div>
 
 </div>
+
+    <div id="packintro" class="hunt">
+        <div class="Q">
+            That sounds like good news!
+        </div>
+        <div class="C">
+            Maybe ta <i>you.</i> I'm not that
+            excited by it.
+        </div>
+        <div class="L">
+            Guys, listen - what's interesting is
+            that we've found a possible way to
+            achieve what we initially showed
+            could never happen.
+        </div>
+        <div class="C">
+            Which is what, again?
+        </div>
+        <div class="L">
+            That a <i>slower hunter</i> could
+            catch a faster prey.
+            <br><br>
+            Let's see what other possible ways
+            could allow a slower hunter to catch
+            a faster prey.
+        </div>
+        <div class="C">
+            Wait, what?  I'm not sure I ...
+        </div>
+        <div class="LL">Be quiet.</div>
+    </div>
+    
+
 
 </body>
 
@@ -495,8 +605,14 @@ svg {
         L : new IconObj(
             'labcoat',
             '.L',
-            ['labCoat02.png'],
+            ['labCoat00.png'],
             'prepend'
+        ),
+        LL : new IconObj(
+            'labcoat',
+            '.LL',
+            ['labCoat01.png'],
+            'append'
         )
     };
     //}
