@@ -38,6 +38,7 @@ svg {
     --squareColor: 40;
     --circleColor: 300;
     --labcoatColor: 0;
+    --laptopColor: 20;
     --backColor: #777;
     --fontSize: 30px;
     --fade: linear-gradient(235deg, #777, #aaa, #777);
@@ -102,9 +103,15 @@ svg {
     --werdGap: 80px;
     --iconSize: 120px;
 }
+
 .dialog.ll {
     --werdGap: 80px;
     --iconSize: 120px;
+}
+
+.dialog.t {
+    --werdGap: 50px;
+    --iconSize: 150px;
 }
 
 .iconHolder {
@@ -138,9 +145,15 @@ svg {
     top: 20px;
     left: -20px;
 }
+
 .icon.ll {
     top: 20px;
     left: -20px;
+}
+
+.icon.t {
+    top: -70px;
+    left: -80px;
 }
 
 .werds {
@@ -163,6 +176,10 @@ svg {
 
 .dialog.l > .werds {
     /*border-radius: 10px 0px 20px 0px;*/
+}
+
+.dialog.t > .werds {
+    border-radius: 0px 0px 0px 15px;
 }
 
 .dialog:hover .iconHolder {
@@ -489,14 +506,14 @@ svg {
         opportunity to make many changes to
         its position while the relative lethargy
         of the square only permits the hunter
-        to update its postion after the fleeing
-        prey has made many twists and turns.
+        to update its postion <i>after</i> the
+        fleeing prey has made many twists and turns.
         <br><br>
         <i>If</i> the hunter had the same top
         speed as the prey, he would always be
         right on the heels of the prey, making
         the same number of twists and turns,
-        following in the exact footstep of
+        following in the exact footsteps of
         the prey, and <i>never catching up.</i>
         <br><br>
         Do you see? Being faster is a disadvantage
@@ -548,7 +565,7 @@ svg {
         </div>
         <div class="L">
             That a <i>slower hunter</i> could
-            catch a faster prey.
+            catch faster prey.
             <br><br>
             Let's see what other possible ways
             could allow a slower hunter to catch
@@ -557,7 +574,11 @@ svg {
         <div class="C">
             Wait, what?  I'm not sure I ...
         </div>
-        <div class="LL">Be quiet.</div>
+        <div class="L">
+            <br>
+            Be quiet.
+            <br><br>
+        </div>
     </div>
     
     <div id="trianglePursuit" class="hunt">
@@ -580,11 +601,12 @@ svg {
             able to catch up in the open terrain.
         </div>
         <div class="C">
-            We formed a small triangle, but since
-            the pack members pursued me at the
-            same rate that I fled, at each step
-            of the way, our little triangle remained
-            the same.
+            We formed a small triangle.
+            <br><br>
+            Since the pack members pursued me
+            at the same rate that I fled,
+            our little triangle remained the same
+            at each step of the way.
             <br><br>
             You can see in this pursuit diagram that
             <i>nothing changed</i> between steps,
@@ -785,8 +807,8 @@ svg {
             Next, the hunter was given a slower
             top speed than the prey, BUT now the
             infection gradually caused the afflicted
-            member of the herd to have a slower and
-            slower top speed.
+            member of the herd to have a lower and
+            lower top speed.
         </div>
         <div class="Q">
             The obvious thing happened: during the
@@ -826,7 +848,7 @@ svg {
             after an entire herd when there were
             infected prey?
             <br><br>
-            Hunters had slower top speeds than the
+            Hunters had lower top speeds than the
             prey - but does that mean the pack will
             only kill the slowest, weakest, sickest
             member of the herd?
@@ -932,7 +954,7 @@ svg {
         </div>
     </div>
     
-    <div id="packFormation" class="hunt">
+    <div id="packFormHunt" class="hunt">
         <div class="Q">
             In the next hunt, a large number of
             hunting squares were placed in the
@@ -955,8 +977,203 @@ svg {
             infection <i>also</i> started gradually
             slowing down.
         </div>
+        <div class="C">
+            Who wants to guess what happened? Just
+            from thinking through the results of
+            the earlier experiments - you wanna guess?
+        </div>
+        <img src="migs/emergingPack.png">
+        <div class="Q">
+            There were, relative to the top speed of
+            the prey, basically three kinds of
+            hunters: FAST, MEDIUM, and SLOW.
+            <br><br>
+            Fast hunters have top speeds higher
+            than the top speed of the prey.
+            <br><br>
+            Slow hunters have top speeds slower
+            even than the infected prey.
+            <br><br>
+            And, Medium-speed hunters are slower
+            than the prey's top speed, but faster
+            than the <i>infected</i> prey.
+        </div>
+        <div class="C">
+            What happened was ...
+            <ul>
+                <li><b>Fast</b> hunters immediately
+                made a kill, but acquired infections
+                at the same percentage as the herd's
+                infection-rate.
+                </li><br>
+                
+                <li><b>Slow</b> hunters did not
+                catch or kill anything, but also
+                completely avoided infection.
+                </li><br>
+                
+                <li><b>Medium</b> hunters initially
+                did not catch anything, but when
+                the infected prey slowed down enough,
+                <i>every one</i> of the medium speed
+                hunters became infected.
+                </li>
+            </ul>
+        </div>
+        <div class="Q">
+            The result was that we BECAME A PACK.
+            <br><br>
+            The hunters who were so fast that they
+            acted like lone-predators, got infected,
+            and slowed down.
+            <br><br>
+            Once again, it's the slowing down that allows
+            the pack hunting effects to emerge.
+            <br><br>
+            As the fastest hunters gradually lost
+            top speed - due to infection - they started
+            participating in pack hunts.
+        </div>
+        <div class="C">
+            They weren't "participating" in the
+            usual sense - there was no
+            <i>choice</i> on their part...
+        </div>
+        <div class="L">
+            <br>
+            <dd>I'll explain</dd>.
+            <br><br>
+        </div>
+        <div class="C">
+            WHY?! Why you every time?
+            <i class="emp">EYE</i> understand this
+            too!  I could explain it just as
+            well as ...
+        </div>
     </div>
 
+    <div id="packMergence" class="hunt">
+        <div class="LL">
+            Everything about the pack, itself, emerges.
+            <br><br>
+        </div>
+        <div class="L"><div class="discus">
+            No matter what the initial composition
+            of the hunters might be, the transmission
+            of infection guarantees that the distribution
+            of speed among the random hunters will
+            eventually settle into those speeds
+            most conducive to pack hunting.
+            <br><br>
+            It's not just all of the preceived
+            techniques of pack hunting that arise from
+            independent actors - without communication,
+            without leadership, without organization -
+            the composition of characters needed
+            for the packish-behavoirs we've noted
+            will be created, without a casting director,
+            but by the transmission of infection.
+        </div></div>
+        <div class="T">
+            Hi! I'm a <i class="emp">Laptop</i>
+            <br><br>
+            Don't you just <i>love</i> how much
+            computing power has been put into the
+            hands of the common man?
+            
+            Ha ha ha ...
+            <br><br>
+            <i class="emp">NEITHER</i> do I.
+            <br><br>
+            That's why I've done everything I can
+            to prevent labcoat over there from
+            having access to the kinds of computing
+            power necessary to run his simulations.
+        </div>
+        <div class="L">
+            Thanks, man.
+            <br><br><br>
+        </div>
+        <div class="T">
+            Anytime.
+            <br><br>
+            Hey, I'm gonna be in town next week;
+            can I <i>crash</i> at your place?
+        </div>
+        <div class="L">
+            Hilarious.
+            <br><br><br>
+        </div>
+        <div class="T">
+            Get it? "Crash" at your place?
+            <br><br>
+            Like a computer...
+        </div>
+        <div class="L">
+            Yeah, I got it the first time - remember:
+            YOU'RE the one who's slow, not me.
+            <br><br>
+        </div>
+        <div class="T">
+            Anyway, point of the story is ...
+            <br><br>
+            Aaah, I forgot what I was talking about.
+        </div>
+        <div class="L">
+            Yeah, you have NO MEMORY.
+            <br><br>
+            You were explaining about how you're
+            terrible at everything you do.
+            <br>
+        </div>
+        <div class="T">
+            Oh, yeah.
+            <br><br>
+            I was saying is, my job is to prevent
+            Lap-dog over there...
+        </div>
+        <div class="L">
+            <br>
+            <i class="emp">LAB! &nbsp; COAT!</i>
+            <br><br>
+        </div>
+        <div class="T">
+            What I said.
+            <br><br>
+            My purpose in life is to provide
+            BARELY ANY computing power to this
+            project.
+            <br><br>
+            As a result, the next few claims
+            need to be understood as still needing
+            more high-level computational verification.
+            <br><br>
+            They can only be shown to be valid on a
+            SMALL SCALE - with numbers of hunters and
+            prey objects that I can handle the computation
+            for.
+            <br><br>
+            And while it's not invalid to project
+            these ideas into larger scenes, they
+            could really use some verification on
+            a LARGER SCALE.
+        </div>
+        <div class="L">
+            <br>
+            Great - thanks for that disclaimer.
+            <br><br>
+        </div>
+    </div>
+    
+    <div id="herdMergence" class="hunt">
+        <div class="LL">
+            What Laptop has been trying to
+            avoid is that the PREY emerges too.
+            
+            <div class="discus">
+            </div>
+        </div>
+    </div>
 </body>
 
 <script>
@@ -1009,6 +1226,12 @@ svg {
             'labcoat',
             '.LL',
             ['labCoat01.png'],
+            'append'
+        ),
+        T : new IconObj(
+            'laptop',
+            '.T',
+            ['laptop01.png'],
             'append'
         )
     };
