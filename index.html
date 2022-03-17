@@ -114,6 +114,12 @@ svg {
     --iconSize: 150px;
 }
 
+.dialog.tt {
+    --werdGap: 70px;
+    --iconSize: 120px;
+}
+
+
 .iconHolder {
     position: relative;
     height: 1px;
@@ -156,6 +162,10 @@ svg {
     left: -80px;
 }
 
+.icon.tt {
+    top: -50px;
+    left: -10px;
+}
 .werds {
     height: auto;
     padding: 20px;
@@ -178,7 +188,7 @@ svg {
     /*border-radius: 10px 0px 20px 0px;*/
 }
 
-.dialog.t > .werds {
+.dialog.t, .dialog.tt > .werds {
     border-radius: 0px 0px 0px 15px;
 }
 
@@ -702,6 +712,26 @@ svg {
         <img src="migs/bubble3.png" style="filter:none;">
         <div class="Q">
             Oh, I understand now.
+            <br><br>
+            <center style="font-size:0.4em;">
+                [<i>scroll down</i>]<br><br>
+            </center>
+            <div style="
+                padding: 0;
+                margin: 0;
+                height:270px;
+                overflow:auto;
+            ">
+                <img src="migs/vectorAddition.jpg"
+                 style="
+                    padding: 0;
+                    margin: 0;
+                    width: 100%;
+                    border: none;
+                    filter:none;
+                 "
+                >
+            </div>
         </div>
         <div class="C">
             So, like I was saying, when the hunting
@@ -1211,6 +1241,7 @@ svg {
             BARELY ANY computing power to this
             project.
             <br><br>
+            <div class="discus">
             As a result, the next few claims
             need to be understood as still requiring
             more high-level computational verification.
@@ -1224,6 +1255,7 @@ svg {
             these ideas into larger scenes, they
             could really use some verification on
             a LARGER SCALE.
+            </div>
         </div>
         <div class="L">
             <br>
@@ -1318,6 +1350,7 @@ svg {
         </div>
     </div>
 
+    
 </div>
 </body>
 
@@ -1378,6 +1411,12 @@ svg {
             '.T',
             ['laptop01.png'],
             'append'
+        ),
+        TT : new IconObj(
+            'laptop',
+            '.TT',
+            ['laptop00.png'],
+            'prepend'
         )
     };
     //}
