@@ -115,7 +115,7 @@ svg {
 }
 
 .dialog.tt {
-    --werdGap: 70px;
+    --werdGap: 10px;
     --iconSize: 120px;
 }
 
@@ -164,7 +164,7 @@ svg {
 
 .icon.tt {
     top: -50px;
-    left: -10px;
+    left: -20px;
 }
 .werds {
     height: auto;
@@ -188,7 +188,7 @@ svg {
     /*border-radius: 10px 0px 20px 0px;*/
 }
 
-.dialog.t, .dialog.tt > .werds {
+.dialog.t > .werds, .dialog.tt > .werds {
     border-radius: 0px 0px 0px 15px;
 }
 
@@ -656,8 +656,8 @@ svg {
             Can you explain that a little bit more?
         </div>
         <div class="C">
-            Sure.  Look, the way I view the universe
-            is that every single object in the galaxy
+            Sure.  Look: the way I view the universe
+            is, that every single object in the galaxy
             has a DANGER BUBBLE surrounding it.
             <br><br>
             As long as I'm <i>outside</i> that bubble,
@@ -687,7 +687,7 @@ svg {
         </div>
         <div class="C">
             I figure the fastest way out of
-            that Danger Bubble, and then RUN!
+            that Danger Bubble, and RUN!
         </div>
         <div class="Q">
             How do you know the fastest way out?
@@ -722,7 +722,7 @@ svg {
                 height:270px;
                 overflow:auto;
             ">
-                <img src="migs/vectorAddition.jpg"
+                <img src="migs/vectorAddition.svg"
                  style="
                     padding: 0;
                     margin: 0;
@@ -1162,7 +1162,7 @@ svg {
             eventually settle into those speeds
             most conducive to pack hunting.
             <br><br>
-            It's not just all of the preceived
+            It's not just all of the perceived
             techniques of pack hunting that arise from
             independent actors - without communication,
             without leadership, without organization -
@@ -1350,6 +1350,94 @@ svg {
         </div>
     </div>
 
+    <div id="dangerZone" class="hunt">
+        <div class="TT">
+            <center>
+            Welcome to the Danger~Zone.
+            </center>
+            <br>
+        <div class="discus" style="font-size:0.6em;">
+        Appendectomy: The algorithm used for the
+        pack hunting scenes is the same for all
+        objects in the scene, and has been briefly
+        described - at the moment, the license
+        for the actual program used to run the
+        simulated hunts does not permit that code
+        to be included here.
+        <br><br>
+        Every object in the scene perceives a
+        Danger Bubble around every other object
+        in the scene.
+        <br><br>
+        Every object has an interval at which it
+        performs the Danger Bubble calculation,
+        which is:
+        <br>
+        <ul style="list-style:square;font-style:italic;">
+            <li>
+                compute an escape vector out of every
+                object's Danger Bubble
+            </li>
+            <li>
+                move at your top speed along the
+                sum of those vectors
+            </li>
+        </ul>
+        That's all they do.
+        <br><br>
+        Objects perceive bubbles of differring
+        size around different objects;
+        objects have different top speeds and
+        different levels of health; they re-run
+        their danger-bubble calculation at different
+        rates.
+        <br><br>
+        Their health is a <b>coefficient</b>
+        by which all other values get
+        multiplied - that is to say,
+        your top speed never actually changes;
+        it's the value of <code><i>health*speed</i></code>
+        that changes; the size of the danger zone
+        around other objects never varies, it's
+        <code><i>health*radius</i></code> that varies;
+        you update your bubble calculation every
+        <code><i>health*interval</i></code> milliseconds;
+        you see?
+        <br><br>
+        Again, these intrinsic values never change
+        for the individual object - they might,
+        however, differ in that object's <i>offspring</i>,
+        but for that object's entire existence, the
+        values remain the same; only the health
+        coefficient changes.
+        <br><br>
+        None of the hunts run for these experiments
+        used offspring - the computational power
+        required is already outrageous; and why?
+        <br><br>
+        It should be fairly obvious that, while this
+        algorithm is incredibly simple, it grows
+        at O(n2) and worse, it <i>has to</i>.
+        It runs in real-time, and cannot be
+        pre-computed. Even the kind of management
+        that would permit larger sized scenes is
+        more than I will allow Lapcoat to access.
+        <br><br>
+        The computation for the escape vector is
+        basically nothing - since every danger bubble
+        is a perfect circle centered on the object,
+        the 'most efficient' escape is literally
+        just the <i>opposite direction</i> from
+        the object - that is,
+        <code><i>pi+atan2(dy,dx)</i></code>;
+        the magnitude of that vector is just
+        how far you are from the bubble's circumfrence:
+        <code><i>radius-distance</i></code>
+        <br><br>
+        
+        </div>
+        </div>
+    </div>
     
 </div>
 </body>
