@@ -688,7 +688,7 @@ svg {
             Wow, that sounds really paranoid!
         </div>
         <div class="C">
-            Well, I am a Circle of prey, driven only
+            Well, I am a Circle of Prey, driven only
             by my fear.
         </div>
         <div class="Q">
@@ -873,9 +873,10 @@ svg {
         <div class="L">
             In the next hunt, you get to be
             <i class="emp">POISONOUS.</i><br><br>
-        </div>
-        <div class="Q">
-            What the fu...
+            
+            <div class="Q">
+                What the fu...
+            </div>
         </div>
         <div class="C">
             OH, that sounds good! Let's try that one.
@@ -885,7 +886,7 @@ svg {
         </div>
     </div>
     
-    <div id="poinson" class="hunt">
+    <div id="paisano" class="hunt">
         <div class="C">
             In the next series of hunts, I was
             turned into a deadly, deadly, poison.
@@ -897,7 +898,7 @@ svg {
         </div>
         <div class="C">
             For the first few hunts, the infection
-        had NO AFFECT on the prey.
+            had NO AFFECT on the prey.
             <br><br>
             That is to say, everyone's top speeds
             remained the same.
@@ -907,7 +908,7 @@ svg {
             prey has a higher top speed than the
             hunter, there is never a kill.
             <br><br>
-            And when the hunter has a higher top
+            And when the <i>hunter</i> has a higher top
             speed, he gets a kill every time.
             During infected hunts where the infection
             has NO INFLUENCE over the prey, the
@@ -962,7 +963,7 @@ svg {
         </div>
         <div class="Q">
             What happened when we sent an entire pack
-            after an entire herd when there were
+            after an entire herd, when there were
             infected prey?
             <br><br>
             Hunters had lower top speeds than the
@@ -1090,7 +1091,7 @@ svg {
             that is SLOWS your top speed.
         </div>
         <div class="Q">
-            And this time, squares that caught the
+            This time, squares that caught the
             infection <i>also</i> started gradually
             slowing down.
         </div>
@@ -1138,8 +1139,12 @@ svg {
             </ul>
         </div>
         <div class="Q">
-            The result was that we BECAME A PACK.
-            <br><br>
+            The result was that
+            <div class="emp" style="
+                text-align:right;
+                width:100%;
+            ">WE BECAME A PACK</div>
+            <br>
             The hunters who were so fast that they
             acted like lone-predators, got infected,
             and slowed down.
@@ -1452,8 +1457,29 @@ svg {
         <code><i>pi+atan2(dy,dx)</i></code>;
         the magnitude of that vector is just
         how far you are from the bubble's circumfrence:
-        <code><i>radius-distance</i></code>
+        <code><i>radius-distance</i></code>;
+        the problem is that every single object
+        in the scene must make that computation
+        for <i>every other</i> object.
         <br><br>
+        Including the <i>obstacles</i>.
+        <br><br>
+        The obstacles themselves are the same
+        type of object, doing the same computation,
+        they just have a 'mobility' of zero.
+        Everything is the same object - they
+        aren't even classes that inherit from
+        some larger class, they are all just
+        instances of the same object.
+        <br><br>
+        The 'prey' or 'herd' objects also 'hunt'.
+        That is, they eat some of the
+        zero-mobility objects.
+        <br><br>
+        The zero-mobility objects eat
+        <i>the scene</i>, and ...
+        <br><br>
+        The <i>scene itself</i> is also an object.
         
         </div>
         </div>

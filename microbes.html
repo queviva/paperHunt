@@ -1,0 +1,816 @@
+<!doctype html><html lang="en">
+    
+<head><title>microbes</title>
+<style>
+
+#holder{
+	position:relative;
+	margin:auto;
+	width:1000px;
+	height:800px;
+	xbackground-color:#eee;
+	background-color:#444;
+	overflow:hidden;
+	xtransform: scale(0.8, 0.8);
+	transform-origin: 50% 0%;
+}
+
+#energyDiv {
+	position:relative;
+	margin:auto;
+	width:1000px;
+	height:50px;
+	text-align: right;
+	line-height: 50px;
+	font-size: 40px;
+	xxbackground-color:#c30;
+	color: #fff;
+	overflow:hidden;
+	border: 0px solid #000;
+}
+
+#energyBar {
+    background-color: #c30;
+    right: 0px;
+    width: 1000px;
+    transition: width 90ms;
+}
+
+#menu{
+	margin:auto;
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:500px;
+	height:50px;
+	background-color:#ea3;
+	padding:10px;
+	border:1px solid #000;
+	overflow:auto;
+	/*visibility:hidden;*/
+	/*display:none;*/
+}
+
+#notes{
+	margin:auto;
+	position:relative;
+	width:478px;
+	height:150px;
+	background-color:#ea3;
+	padding:10px;
+	border:1px solid #000;
+	overflow:auto;
+	/*visibility:hidden;*/
+	/*display:none;*/
+}
+
+#sliderDiv{
+	margin:auto;
+	position:relative;
+	width:478px;
+	height:150px;
+	background-color:#ea3;
+	padding:10px;
+	border:1px solid #000;
+	overflow:hidden;
+}
+
+input{
+	margin:auto;
+	position:relative;
+	top:0px;
+	width:800px;
+	height:25px;
+	background-color:#ea3;
+	display:block;
+}
+
+div{
+	position:absolute;
+}
+
+img{
+	position:absolute;
+	/*opacity:.75;*/
+}
+
+.burbuja{
+	border:2px solid #fff;
+	visibility:hidden;
+}
+
+#butt0 {
+    position: relative;
+    top: 0px;
+}
+
+</style>
+</head>
+
+<body>
+<div id="energyDiv">
+   <div id="energyBar">energy</div>
+</div>
+<!--input id="butt0" type="button" value="XXX" onclick="window.cc=(typeof(window.cc)==='undefined')?1:window.cc+1;stopStart(window.cc%2);"-->
+
+<div id="holder"></div>
+<div id="notes" style="display:none;"></div>
+
+<!--div id="notes">
+				In this scene, all members are attracted to each other.
+				by the inverse cube of the distance to the rim
+				of their danger bubbles.
+				<br/><br/>
+				NO other calculation, computation, or programming of
+				any action or behavior is done.
+				<!--input type="range" style="width:300" /-->
+
+<!--/div-->
+<!--div id="menu">
+<input id="toggleMigs" type="button" style="font-size:28px;height:40px" value="turn imgs on" onclick="
+
+this.c=typeof(this.c)==='undefined'?1:this.c+1;
+this.value = 'turn ' + (this.c%2 === 1  ? 'imgs off' : 'imgs on ');
+toggleImages(this.c%2);
+
+
+"/>
+	
+</div-->
+</body>
+<script type="text/javascript">
+
+//////////////////////////////////////////////////////////////
+// pizzaFace
+//
+// el mundo en el que todo el mundo esta atraido a todos
+// los demas por el inverso del cuadrado de la distancia
+// entre ellos.
+//////////////////////////////////////////////////////////////
+
+// prefs{
+
+const prefs = {
+    useFasties: false,
+    energyOnStart: false,
+    moveOnStart: true
+};
+
+const fasties = {
+    use : prefs.useFasties,
+    //col : [[100,0,0],[200,0,0]],
+    col: [[200,100,0],[238, 170, 0]],
+    dur : 20
+};
+
+
+//}
+
+// utils {
+
+// corteza para referencia
+function $(id){
+  var D = document.getElementById(id);
+  D.s   = D.style;
+  D.cs  = window.getComputedStyle(D, null);
+  return D;
+}
+
+// corteza para numeros azar
+var azar = x => Math.random()*x;
+
+// apodo
+var rand = azar;
+
+var shuffle = x => x.sort(() => 0.5 - Math.random());
+
+var fadeVal = (per,A,B) => (A-((A-B)*per));
+
+var fadeArray = function(per,A,B){
+	var tmp = [];
+	for(var i in A){
+		//tmp[i] = ~~(A[i]-((A[i]-B[i])*per));
+		tmp[i] = (A[i]-((A[i]-B[i])*per));
+	}
+	return tmp;
+};
+
+var fadeArrayINT = function(per,A,B){
+	var tmp = [];
+	for(var i in A){
+		tmp[i] = ~~(A[i]-((A[i]-B[i])*per));
+	}
+	return tmp;
+};
+
+// alias
+var fadeColor = fadeArrayINT;
+
+// to set HTML values of a div
+var ponerDiv = function(obj,L,T,W,H,B,BC,R,C,Z){
+	var objS = obj.style;
+	objS.left   = (L||0) +'px';
+	objS.top    = (T||0) +'px';
+	objS.width  = (W||0) +'px';
+	objS.height = (H||0) +'px';
+	objS.border = (B||0) +'px solid #fff';
+	objS.borderColor = (BC||'#fff');
+	objS.borderRadius = (R||0) +'px';
+	if(C != null){objS.backgroundColor = 'rgb('+C.toString()+')';}
+	if(Z != null){objS.zIndex = Z;}
+};
+//}
+
+// scene stuff {
+// get some references
+var holder = $('holder');
+var energyDiv = $('energyDiv');
+
+//var notes  = $('notes' );
+//var butt0  = $('butt0' );
+
+// lista de los values-files
+/*
+var listaVals = ['test00.js','test01.js','test02.js'];
+
+// values-file lamaran esta funcion en load
+function setStepsArray(v){
+	//...hace alguna cosa
+}
+*/
+
+// some useful screen variables {
+var screenW  = holder.offsetWidth;
+var screenH  = holder.offsetHeight;
+var screenD  = 1000;
+var screenW2 = ~~(screenW/2);
+var screenH2 = ~~(screenH/2);
+var screenD2 = ~~(screenD/2);
+var screenWW = screenW2*screenW2;
+var screenHH = screenH2*screenH2;
+
+var Math180pi   = 57.28578; //180/Math.PI;
+var colorPer    = '#fff';
+var colorPeli   = '#ea0';
+var colorNeg    = '#c30';
+//}
+
+// tipos de peligrObjectos defectos
+var TPO = [
+
+	// nombre,
+	// salud,
+	// posicion, velocidad, mobilidad, direccion, colores
+	// tamano,   duracion,  imagen,    quantidad
+
+	// velocidad en pixeles per segundo
+	// duracion en millisegundos
+	// colores en decimal RGB
+
+
+	{nom:'terra',
+	 sal:1,
+	 pos:null, vmx:1, mob:[0,0,0], dir:0, col:[[138,92,46],[51,153,51]],
+	 tam:[100,100,0], dur:1000, mig:'gold00.png', cnt:0},
+
+	{nom:'manada',
+	 sal:1,
+	 pos:null, vmx:10, mob:[1,1,0], dir:0, col:[[0,0,0],[204,51,0]],
+	 tam:[72,72,0], dur:1000, mig:'gold01.png', cnt:0},
+
+	{nom:'cazadora',
+	 sal:1,
+	 //pos:null, vmx:20, mob:[1,1,0], dir:0, col:[[0,0,0],[153,102,102]],
+	 pos:null, vmx:20, mob:[1,1,0], dir:0, col:[[0,0,0],[238,170,51]],
+ 	 tam:[54,54,0], dur:1000, mig:'gold01.png', cnt:0},
+
+	{nom:'ambiente',
+	 sal:1,
+	 //pos:[screenW2,screenH2,0],vmx:2, mob:[0,0,0], dir:0,
+	 pos:null, vmx:20, mob:[1,1,0], dir:0,
+	 col:[[0,0,0],[0,0,0]],
+	 tam:[50,50,0], dur:30, mig:'mini.png', cnt:0}
+
+];
+
+// miedos
+var zonaMesa = [
+	[1500,200,270,500],   //terra
+	[10,1500,100,500],    //manada
+	[90,20,1500,500],     //cazadora
+	[1500,1500,1500,3000] //ambiente
+];
+
+var lista = [
+
+    {tip:3,pos:[10+rand(screenW),rand(screenH),0],dur:4000,
+	col:[[0,0,0],[0,0,0]]},
+	{tip:3,pos:[10+rand(screenW),rand(screenH),0],dur:4000,
+	col:[[0,0,0],[0,0,0]]},
+	{tip:3,pos:[10+rand(screenW),rand(screenH),0],dur:4000,
+	col:[[0,0,0],[0,0,0]]},
+
+	{tip:2,pos:[10+rand(screenW),rand(screenH),0],dur:60,
+	col:[[20,20,140],[147,112,219]]},
+	{tip:2,pos:[10+rand(screenW),rand(screenH),0],dur:60,
+	col:[[20,20,140],[147,112,219]]},
+	(fasties.use ?
+	{tip:2,pos:[10+rand(screenW),rand(screenH),0],dur:fasties.dur,
+	col:fasties.col} :
+	{tip:2,pos:[10+rand(screenW),rand(screenH),0],dur:60,
+	col:[[20,20,140],[147,112,219]]}),
+
+	{tip:1,pos:[10+rand(screenW),rand(screenH),0],dur:60,
+	col:[[20,20,140],[147,112,219]]},
+	{tip:1,pos:[10+rand(screenW),rand(screenH),0],dur:60,
+	col:[[20,20,140],[147,112,219]]},
+	(fasties.use ?
+	{tip:1,pos:[10+rand(screenW),rand(screenH),0],dur:fasties.dur,
+	col:fasties.col} :
+	{tip:1,pos:[10+rand(screenW),rand(screenH),0],dur:60,
+	col:[[20,20,140],[147,112,219]]}),
+
+	{tip:0,pos:[10+rand(screenW),rand(screenH),0],dur:60,
+	col:[[20,20,140],[147,112,219]]},
+	{tip:0,pos:[10+rand(screenW),rand(screenH),0],dur:60,
+	col:[[20,20,140],[147,112,219]]},
+	(fasties.use ?
+	{tip:0,pos:[10+rand(screenW),rand(screenH),0],dur:fasties.dur,
+	col:fasties.col} :
+	{tip:0,pos:[10+rand(screenW),rand(screenH),0],dur:60,
+	col:[[20,20,140],[147,112,219]]})
+
+
+];
+
+// para recordar todos los peligrobjectos en el mundo
+var todasObj = [];
+
+//}
+
+/////////////////////////////////////////////////////////////////////
+// PerligrObj {
+    
+// class para miembros del mundo
+
+function PeligrObj(vals){
+
+	var PO = this;//{
+	this.name = TPO[vals.tip].nom+('00'+TPO[vals.tip].cnt++).slice(-3);
+	this.health = vals.sal;
+	this.vals = vals;
+	this.msg  = '';
+	this.vecinos = [];
+	this.loopTimeOut;
+	this.curDIF = 0;
+	this.curVEL = 0;
+	this.oldPOS = vals.pos;
+	this.newPOS = vals.pos;
+	this.curPOS = [0,0,0];
+	this.oldORI = [rand(360),rand(360),0];
+	this.newORI = this.oldORI;
+	this.curORI = [0,0,0];
+	this.oldTAM = vals.tam;
+	this.newTAM = vals.tam;
+	this.curTAM = vals.tam;
+	this.oldCOL = vals.col[1];
+	this.newCOL = vals.col[1];
+	this.curCOL = vals.col[1];
+    //}
+
+	this.div  = document.createElement('div');
+	this.divS = this.div.style;
+	// (obj,L,T,W,H,B,BC,R,C,Z)
+	ponerDiv(this.div,
+		vals.pos[0]-vals.tam[0],vals.pos[1]-vals.tam[1],
+		vals.tam[0],vals.tam[1],0,null,
+	//(vals.tip === 0) ? 13 : (vals.tip === 3) ? 0 : ~~((vals.tam[0]/2)),
+	(vals.tip === 3) ? 10 : ~~((vals.tam[0]/2)),
+	//~~((vals.tam[0]/2)),
+	    [200,200,200]);
+	    //vals.col[0]);
+	
+	    // create the outline if not of type 3
+    this.out = document.createElement('div');
+    this.outS = this.out.style;
+    // (obj,L,T,W,H,B,BC,R,C,Z)
+    ponerDiv(this.out,
+        8,
+        8,
+        vals.tam[0] - 16,
+        vals.tam[1] - 16,
+        0,
+        null,
+        (vals.tip === 3) ? 10 : ~~((vals.tam[0]-16)/2),
+        //(vals.tip === 3) ? [60,60,60] : (vals.dur === fasties.dur) ? [205,130,0] : [90,50,160],
+        //(vals.tip === 3) ? [60,60,60] : (fasties.use) ? [205,130,0] : [90,50,160],
+        vals.col[1],
+        100
+    );
+    
+    this.div.appendChild(this.out);
+
+
+	//crea la imagen para girar
+	/*
+	this.mig  = document.createElement('img');
+	this.mig.src = 'migs/'+this.vals.mig;
+	this.mig.style.position = 'absolute';
+	this.mig.style.height = this.vals.tam[0] +'px';
+	this.mig.style.width  = this.vals.tam[1] +'px';
+	*/
+  // debug
+  // hide the mig
+  /*
+  this.mig.style.visibility = 'hidden';
+	this.mig.style.MozTransform    = 'rotate('+this.oldORI[0]+'deg)';
+	this.mig.style.webkitTransform = 'rotate('+this.oldORI[0]+'deg)';
+	// anada la imagen ... o no, o qualquiere
+	this.div.appendChild(this.mig);
+	*/
+	//if(this.vals.tip !== 2) this.div.appendChild(this.mig);
+	//if(this.vals.tip !== 3){this.divS.backgroundColor = null;}
+	/*if(this.vals.tip !== 2){
+		this.divS.border = '1px solid rgb('+this.vals.col[1].toString()+')';
+	}*/
+	//if(this.vals.tip !== 2) this.divS.opacity = .2;
+
+	// crea una burbuja pa'aver cuando clique
+	this.bur  = document.createElement('div');
+	this.burS = this.bur.style;
+	// (obj,L,T,W,H,B,BC,R,C,Z)
+	ponerDiv(this.bur,
+		vals.pos[0]-vals.tam[0],vals.pos[1]-vals.tam[1],
+		vals.tam[0],vals.tam[1],0,null,
+	//vals.tam[0]/2,
+		(vals.tip === 0) ? 0 : (vals.tip === 3) ? 0 : ~~((vals.tam[0]/2)));
+		
+	// keep track of energy
+	this.energy = 0;
+	
+}
+
+PeligrObj.prototype.moveLoop = function(start){
+		//this.curDIF = (+new Date - start);
+		this.curDIF = (new Date().getTime() - start);
+		var PO = this;
+		var per = this.curDIF/(this.vals.dur/this.vals.sal);
+		if(per < 1){
+			this.curPOS = fadeArray(per,this.oldPOS,this.newPOS);
+			this.curTAM = fadeArray(per,this.oldTAM,this.newTAM);
+		//this.curCOL = fadeColor(per,this.oldCOL,this.newCOL);
+		  //this.curORI = fadeArray(per,this.oldORI,this.newORI);
+
+			this.divS.left   = ((((this.curPOS[0]-this.curTAM[0]/2)%screenW)+screenW)%screenW)-this.curTAM[0]/2 +'px';
+			this.divS.top    = ((((this.curPOS[1]-this.curTAM[1]/2)%screenH)+screenH)%screenH)-this.curTAM[1]/2 +'px';
+		//this.divS.left   = this.curPOS[0]-this.curTAM[0]/2 +'px';
+		//this.divS.top    = this.curPOS[1]-this.curTAM[1]/2 +'px';
+			this.divS.width  = this.curTAM[0] +'px';
+			this.divS.height = this.curTAM[1] +'px';
+
+		//this.divS.backgroundColor  = 'rgb('+ this.curCOL.toString() +')';
+		  //this.mig.style.MozTransform    = 'rotate('+this.curORI[0]+'deg)';
+		  //this.mig.style.webkitTransform = 'rotate('+this.curORI[0]+'deg)';
+
+			this.loopTimeOut = setTimeout(function(){PO.moveLoop(start);},0);
+
+		}else{
+			recalc(this);
+			this.moveLoop(+new Date);
+		}
+};
+
+PeligrObj.prototype.getBorderRadius = function(){
+	return this.div.style.borderRadius;
+};
+
+PeligrObj.prototype.setPeliBur = function(size,Z,BC){
+
+		// burbujitas penquenas demasidas nechitan a menos cinco
+		// para tener una frontera de css
+
+		if(size[0]<0||size[1]<0){BC = colorNeg;}
+		for(var i in size){
+			size[i] = Math.abs(size[i]);
+			size[i] = size[i] <= 5 ? 5 : size[i];
+		}
+		var tmpCenter = this.getCenter();
+		this.burS.position = 'absolute';
+		this.burS.left   = tmpCenter[0] - size[0]/2 +'px';
+		this.burS.top    = tmpCenter[1] - size[1]/2 +'px';
+	//this.burS.front  = tmpCenter[2] - size[2]/2 +'px';
+		this.burS.width  = size[0]-4 +'px';
+		this.burS.height = size[1]-4 +'px';
+	//this.burS.depth  = size[2]-4 +'px';
+		this.burS.zIndex = 100*lista.length;//Z;
+		this.burS.border = '2px solid '+(BC||colorPeli);
+		this.burS.borderRadius = ((size[0]+2)/2) +'px';
+		this.burS.visibility   = 'visible';
+		
+};
+
+PeligrObj.prototype.getCenter = function(){
+		return[
+			(parseInt(this.divS.left)  + ~~(this.curTAM[0]/2)),
+			(parseInt(this.divS.top )  + ~~(this.curTAM[1]/2)),
+		//(parseInt(this.divS.front) + ~~(this.curTAM[2]/2))
+			 this.curPOS[2] // en lugar de 3D style.front
+		];
+};
+
+PeligrObj.prototype.getEnergy = function () {
+    
+    return (
+    
+    // adjust from millisec to second
+    1000 *
+    
+    // how far this is moving
+    Math.sqrt(
+        (this.oldPOS[0] - this.newPOS[0])**2
+        +
+        (this.oldPOS[1] - this.newPOS[1])**2
+    )
+    
+    // divided by
+    /
+    
+    // how long it takes
+    this.vals.dur);
+}
+
+//}
+
+/////////////////////////////////////////////////////////////
+// metodos de la escena {
+
+var recalc = function(obj){
+
+	obj.msg = '';  // blanca mensaje
+	obj.oldPOS = obj.newPOS;
+	obj.oldORI = obj.newORI;
+	obj.oldTAM = obj.newTAM;
+	obj.oldCOL = obj.newCOL;
+
+	var tmpV  = []; // copia de vecinos
+	var dxTOT = 0;
+	var dyTOT = 0;
+	var dzTOT = 0;
+
+	var miPos = obj.getCenter();
+
+	for(var i in todasObj){
+
+		var TO = todasObj[i];
+		var suPos = TO.getCenter();
+		var dX = suPos[0] - miPos[0];
+		var dY = suPos[1] - miPos[1];
+		var dZ = suPos[2] - miPos[2];
+
+		// si quiere, ajusta para mundo ciclico
+		if(dX*dX > screenWW){
+			dX = (suPos[0] + ((dX < 0 ) ? screenW : -screenW)) - miPos[0];
+		}
+		if(dY*dY > screenHH){
+			dY = (suPos[1] + ((dY < 0 ) ? screenH : -screenH)) - miPos[1];
+		}
+
+		var dis = Math.sqrt(dX*dX+dY*dY);
+
+		var tmpBur = zonaMesa[obj.vals.tip][TO.vals.tip];
+
+		var del = dis - tmpBur/2;
+
+		obj.msg += 'VEO ' + TO.name +' a '+ ~~dis +'px';
+		obj.msg += '<br/>';
+
+		if(dis === 0){ // en lugar de "del == 0"
+			dX = 0;
+			dY = 0;
+			dZ = 0;
+
+		}else{
+
+			tmpV[tmpV.length] = [i,[tmpBur,tmpBur,0]];
+
+			dX = (800*dX*del)/(dis*dis*dis);
+			dY = (800*dY*del)/(dis*dis*dis);
+			dZ = (800*dZ*del)/(dis*dis*dis);
+
+		}
+		dxTOT += dX;
+		dyTOT += dY;
+		dzTOT += dZ;
+	}
+
+	obj.newPOS = [
+		obj.oldPOS[0]+dxTOT,
+		obj.oldPOS[1]+dyTOT,
+		obj.oldPOS[2]+dzTOT
+	];
+
+	obj.newORI = [ // necesita anadar 90
+		90 + Math.atan2(
+			obj.newPOS[1] - obj.oldPOS[1],
+			obj.newPOS[0] - obj.oldPOS[0]
+		)*Math180pi,0,0
+	];
+
+	/*
+	if(obj.newCOL.toString() == obj.vals.col[0].toString()){
+		obj.newCOL = obj.vals.col[1];
+	}else{
+		obj.newCOL = obj.vals.col[0];
+	}
+	*/
+
+	/*if(obj.vals.tip === 1){
+	obj.newCOL = [
+		rand(255),
+		rand(255),
+		rand(255)
+	];
+	}*/
+
+	// rescrito los vecinos
+	obj.vecinos = tmpV;
+
+
+};
+
+var monstrarBurbujas = function(obj){
+	var tmpVec = obj.vecinos;
+	//notes.style.display = 'block';
+	makeNote(obj.name +'<br/>'+ obj.msg);
+	for(var i in tmpVec){
+		todasObj[tmpVec[i][0]].setPeliBur(tmpVec[i][1],100*lista.length);
+	}
+	obj.setPeliBur(obj.curTAM,100*lista.length+tmpVec.length,colorPer);
+	obj.bur.style.borderRadius = obj.getBorderRadius();
+};
+
+var oscurBurbujas = function(obj){
+	var tmpVec = obj.vecinos;
+	makeNote('');
+	obj.bur.style.visibility = 'hidden';
+	obj.bur.style.zIndex = 1;
+	for(var i in todasObj){
+		todasObj[i].bur.style.visibility = 'hidden';
+	}
+	notes.style.display = 'none';
+};
+
+// for getting all energy
+const calcAllEnergy = () => {
+	    let sum = 0;
+	    for (i in todasObj) {
+	        sum += todasObj[i].getEnergy();
+	    }
+	    //energyDiv.innerHTML = sum.toFixed(0);
+	    energyBar.style.width = 800 * sum / 5000 +'px';
+	    energyBar.style.backgroundColor =  (sum / 5000 > 1) ? '#000' : '#c30';
+	    energyBar.innerHTML = sum.toFixed(0);
+	    if (calcEnergyLoop) {
+	        setTimeout(calcAllEnergy, 100);
+	    } else {
+	        energyBar.innerHTML = 'energy';
+	        energyBar.style.width = '1300px';
+	    }
+	}
+	
+var addClicks = [
+	function(obj){
+		obj.div.onmousedown = function(){monstrarBurbujas(obj);};
+		holder.onmouseup = function(){oscurBurbujas(obj);};
+		obj.bur.onmouseout  = function(){oscurBurbujas(obj);};
+	},
+	function(obj){
+		obj.div.onmousedown = '';
+		holder.onmouseup = '';
+		obj.bur.onmouseout  = '';
+	}
+];
+
+var pause = [
+	function(id){clearTimeout(id.loopTimeOut);},
+	function(id){id.moveLoop((+new Date) - id.curDIF)}
+];
+
+function stopStart(v){
+	for(var i in todasObj){
+		pause[v](todasObj[i]);
+		addClicks[v](todasObj[i]);
+	}
+}
+
+function toggleImages(v){
+	for(var i in todasObj){
+		todasObj[i].mig.style.visibility = (v) ? 'visible' : 'hidden';
+		todasObj[i].divS.backgroundColor = (v) ? null : 'rgb('+todasObj[i].oldCOL.toString()+')';
+	}
+}
+
+//}
+
+//////////////////////////////////////////////////////
+
+In_Principio_Erat_Verbum = function(){
+
+	for (var i = 0, k = lista.length; i < k; i++) {
+		
+		lista[i].zonas = [];
+
+		// crea la mesa de las zonas
+		for(var j=0,jj=lista.length;j<jj;j++){
+			lista[i].zonas[j] = zonaMesa[lista[i].tip][lista[j].tip];
+		}
+
+		// cada los objecto deban a tener un tipo
+		if(!TPO[lista[i].tip]){alert('no hay tal tipo')}else{
+			// mira para vals, o usa defalta
+			for(var j in TPO[lista[i].tip]){
+				//lista[i][j]=(lista[i][j]!=null)?lista[i][j]:TPO[lista[i].tip][j];
+				lista[i][j]=(lista[i][j]||lista[i][j]==0)?lista[i][j]:TPO[lista[i].tip][j];
+			}
+			// si no hay posicion, pone les azada
+			if(lista[i].pos == null){lista[i].pos = [
+				rand(screenW),
+				rand(screenH),
+				rand(screenD)
+			]}
+			todasObj[i] = new PeligrObj(lista[i]);
+			holder.appendChild(todasObj[i].div);
+			holder.appendChild(todasObj[i].bur);
+		}
+
+		if(i != lista.length-1){
+			lista[lista.length-1].sal += lista[i].sal;
+		}
+
+		// empieza el mundo con cliques y pauzada
+		addClicks[0](todasObj[i]);
+
+	}
+
+	// pone niveles por mobilidad en direccion XY
+	/*todasObj.sort(function(a,b){
+		return a.vals.mob[0] - b.vals.mob[0];
+	});*/
+	for(var i in todasObj){
+		/*
+		todasObj[i].divS.zIndex = i;
+		if(todasObj[i].name === 'ambiente000'){
+			// ambiente nechita ser la bajada
+			//todasObj[i].divS.zIndex = 0;
+		}
+		*/
+		recalc(todasObj[i]);
+	}
+	
+	// empieza en carga
+	//stopStart((window.cc = 1));
+	
+
+	// start energy loop
+	if (prefs.energyOnStart) setTimeout(calcAllEnergy, 100);
+	
+}();
+
+
+/////////////////////////////////////////////////////
+
+// para hacer notas
+function makeNote(v){notes.innerHTML = v;};
+
+// para generar hojas de valores
+//exportValuesFile(csvData);
+
+// para empezar|parar por barre espacio
+//*
+window.addEventListener('keypress', function(e){
+	if(e.charCode !== 32){return;}
+	window.cc=(typeof(window.cc)==='undefined')?1:window.cc+1;
+	stopStart(window.cc%2);
+},false);
+//*/
+let calcEnergyLoop = prefs.energyOnStart;
+energyBar.addEventListener('click', e => {
+    if (calcEnergyLoop) {
+        calcEnergyLoop = false;
+    } else {
+        calcEnergyLoop = true;
+        calcAllEnergy();
+    }
+});
+
+if (prefs.moveOnStart) {
+    window.dispatchEvent(
+         new KeyboardEvent('keypress', { 'charCode': 32 })
+    )
+}
+
+// si quiere, clicque el buton toggleMigs al pricipio
+//$('toggleMigs').click();
+
+</script>
+</html>
