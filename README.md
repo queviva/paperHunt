@@ -2,4 +2,4 @@
 
 [pack hunt](https://queviva.github.io/paperHunt): ~ emergent altruism from transmission of infection ~
 
-<img src="migs/bubble3.png" width="300px">
+<a href="https://queviva.github.io/paperHunt"><img src="migs/bubble3.png" width="300px"></a>
